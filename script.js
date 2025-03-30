@@ -6,7 +6,6 @@ function atualizarRelogio() {
     // Cálculo de anos, meses e semanas
     const anos = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24 * 365));
     const meses = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24 * 30.44)) % 12;
-    const semanas = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24 * 7)) % 4;
 
     // Total de dias
     const totalDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
@@ -19,6 +18,12 @@ function atualizarRelogio() {
     const minutosTotais = Math.floor(diferencaTempo / (1000 * 60)) % 60;
     const segundosTotais = Math.floor(diferencaTempo / 1000) % 60;
 
+    // Totais acumulados
+    const totalSegundos = Math.floor(diferencaTempo / 1000);
+    const totalMinutos = Math.floor(diferencaTempo / (1000 * 60));
+    const totalHoras = Math.floor(diferencaTempo / (1000 * 60 * 60));
+    const totalMeses = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24 * 30.44));
+
     // Adicionando zero à esquerda se necessário
     const horas = horasTotais < 10 ? '0' + horasTotais : horasTotais;
     const minutos = minutosTotais < 10 ? '0' + minutosTotais : minutosTotais;
@@ -27,36 +32,40 @@ function atualizarRelogio() {
     // Atualiza os elementos no HTML
     document.getElementById('anos').textContent = `${anos} anos`;
     document.getElementById('meses').textContent = `${meses} meses`;
-    document.getElementById('semanas').textContent = `${semanas} semanas`;
     document.getElementById('dias').textContent = `${Math.round(diasCorretos)} dias`;
-    document.getElementById('horas').textContent = `${horas}:${minutos}:${segundos}`;
-    document.getElementById('minutos').textContent = `${minutos}`;
-    document.getElementById('segundos').textContent = `${segundos}`;
-}
+    document.getElementById('horas').textContent = `${horas} horas`;
+    document.getElementById('minutos').textContent = `${minutos} minutos`;
+    document.getElementById('segundos').textContent = `${segundos} segundos`;
 
-// Atualiza o relógio a cada segundo
+    // Atualiza os contadores totais no HTML
+
+}
 atualizarRelogio();
 setInterval(atualizarRelogio, 1000);
 
 
-let SlideIndex = 1;
-showSlides(SlideIndex);
 
+let slideIndex = 1;
+showSlides(slideIndex);
+
+// Função para avançar ou retroceder slides
 function plusSlides(n) {
-    showSlides(SlideIndex += n);
+    showSlides(slideIndex += n);
 }
 
+// Função para ir para um slide específico
 function currentSlide(n) {
-    showSlides(SlideIndex = n);
+    showSlides(slideIndex = n);
 }
 
+// Função para exibir o slide atual
 function showSlides(n) {
     let i;
     let slides = document.getElementsByClassName("mySlides");
     let dots = document.getElementsByClassName("dot");
 
-    if (n > slides.length) { SlideIndex = 1 }
-    if (n < 1) { SlideIndex = slides.length }
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
 
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
@@ -66,7 +75,11 @@ function showSlides(n) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
 
-    slides[SlideIndex - 1].style.display = "block";
-    dots[SlideIndex - 1].className += " active";
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
 }
 
+// Avançar slides automaticamente a cada 5 segundos
+setInterval(() => {
+    plusSlides(1);
+}, 3000);
