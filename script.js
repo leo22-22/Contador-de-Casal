@@ -30,11 +30,11 @@ function atualizarRelogio() {
     const segundos = segundosTotais < 10 ? '0' + segundosTotais : segundosTotais;
 
     // Atualiza os elementos no HTML
-    document.getElementById('anos').textContent = `${anos} anos`;
-    document.getElementById('meses').textContent = `${meses} meses`;
-    document.getElementById('dias').textContent = `${Math.round(diasCorretos)} dias`;
-    document.getElementById('horas').textContent = `${horas} horas`;
-    document.getElementById('minutos').textContent = `${minutos} minutos`;
+    document.getElementById('anos').textContent = `${anos} anos, `;
+    document.getElementById('meses').textContent = `${meses} meses, `;
+    document.getElementById('dias').textContent = `${Math.round(diasCorretos)} dias, `;
+    document.getElementById('horas').textContent = `${horas} horas, `;
+    document.getElementById('minutos').textContent = `${minutos} minutos e `;
     document.getElementById('segundos').textContent = `${segundos} segundos`;
 
     // Atualiza os contadores totais no HTML
